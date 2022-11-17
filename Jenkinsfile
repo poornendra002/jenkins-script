@@ -1,5 +1,5 @@
 pipeline {
-  agent docker	
+  agent cproject	
   stages {
 
     stage ('BUILD') {
