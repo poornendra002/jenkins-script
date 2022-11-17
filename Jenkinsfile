@@ -1,5 +1,5 @@
 pipeline {
-  agent cproject	
+  agent any	
   stages {
 
     stage ('BUILD') {
