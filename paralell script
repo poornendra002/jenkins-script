@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+        stages {
+            stage ('test') {
+                parallel {
+                    stage ('test1') {
+                        steps {
+                        sh '''
+                        ls -lrt > test1
+                        cat test1
+                        sleep 5
+                        '''
+                        }
+                    }
+                        stage ('test2') {
+                            steps {
+                            sh '''
+                            ls -l >test2
+                            cat test2
+                            sleep 3
+                            '''
+                        
+                        }
+                    }
+                }
+            }
+            stage ('deploy') {
+            steps {
+            echo "testing parallel"
+            }
+        }
+            
+      }
+}
