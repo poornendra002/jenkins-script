@@ -1,0 +1,44 @@
+pipeline {
+    agent none
+    stages {
+        
+        stage ('clone') {
+            agent { label 'java-node' }
+            steps {
+              git branch: 'main', url: 'https://github.com/poornendra002/Java.git' 
+            }
+        }
+        
+        stage ('clone c') {
+     agent { label 'poorna' }
+steps {
+    git credentialsId: 'cproject-gitcredencials', url: 'https://github.com/poornendra002/c-project.git'
+}
+    }
+    stage ('build c') {
+        agent { label 'poorna' }
+        steps {
+       catchError(buildResult: 'SUCCESS', message: 'Build stage failed.Check for errors', stageResult: 'FAILURE') {
+
+            sh ''' cd /home/ubuntu/jenkins/workspace/cachepipeline
+            make
+            rm -rf *.o
+            mkdir /home/ubuntu/jenkins/workspace/cachepipeline/except
+            mv /home/ubuntu/jenkins/workspace/cachepipeline/*.c makefile ABC.exe /home/ubuntu/jenkins/workspace/cachepipeline/except
+            '''
+       }
+            
+        }
+    }
+    stage ('build java') {
+        agent { label 'java-node' }
+        steps {
+            sh '''
+            cd /home/ubuntu/jenkins/workspace/cachepipeline
+            mvn clean install
+            '''
+        }
+        
+    }
+    }
+}
