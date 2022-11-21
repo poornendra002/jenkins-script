@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    environment {
+    NODE= "poorna"
+    }
+    stages {
+    stage ('envi var') {
+        steps {
+            sh ''' echo "$NODE"
+            echo "$BUILD_NUMBER"
+            echo "$JENKINS_URL"
+            echo "$NAME"
+            
+            printenv
+            '''
+        }
+    }
+    
+}
+}
