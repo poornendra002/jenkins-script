@@ -17,7 +17,7 @@ pipeline {
       agent { label 'master' }
         steps {
             sh '''
-            echo "this is test2"
+            echo "this is test 02"
             sleep 5
             '''
         }
