@@ -16,9 +16,7 @@ sh '''
 cd /home/ubuntu/jenkins/workspace/question3
 make
 '''
-
 }
-
 post {
 success {
 archiveArtifacts artifacts: '*.exe', followSymlinks: false
