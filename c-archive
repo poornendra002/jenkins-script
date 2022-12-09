@@ -1,0 +1,29 @@
+pipeline {
+agent any 
+stages {
+
+stage('clone') {
+agent { label 'poorna' }
+steps {
+git credentialsId: 'cproject-gitcredencials', url: 'https://github.com/poornendra002/c-project.git'
+
+}
+}
+stage('build') {
+agent { label 'poorna' }
+steps {
+sh '''
+cd /home/ubuntu/jenkins/workspace/question3
+make
+'''
+}
+}
+
+post {
+success {
+archiveArtifacts artifacts: '*.exe', followSymlinks: false
+
+}
+}
+}
+}
